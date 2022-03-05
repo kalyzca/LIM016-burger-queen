@@ -5,7 +5,7 @@ import { IngresoRoutingModule } from './ingreso-routing.module'
 
 import { LoginComponent } from './login/login.component';
 import { WelcomeComponent } from './welcome/welcome.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { ViewModule } from '../view/view.module';
 
@@ -18,7 +18,8 @@ import { ViewModule } from '../view/view.module';
     CommonModule,
     IngresoRoutingModule,
     ViewModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports:[
     LoginComponent,

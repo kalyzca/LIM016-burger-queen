@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Routes, RouterModule } from '@angular/router';
@@ -6,8 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
 
 import { LoginComponent } from './login/login.component';
-import { PrincipalComponent } from '../view/componentes/principal/principal.component';
-import { GestionUsuariosComponent } from '../administrador/gestion-usuarios/gestion-usuarios.component';
+// import { PrincipalComponent } from '../view/componentes/principal/principal.component';
+// import { GestionUsuariosComponent } from '../administrador/gestion-usuarios/gestion-usuarios.component';
 
 
 const routes: Routes = [
@@ -40,8 +40,6 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild( routes )
   ],
-  exports: [
-    RouterModule
-  ]
+  exports: [RouterModule]
 })
 export class IngresoRoutingModule { }

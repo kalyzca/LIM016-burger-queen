@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { RegisterUsers } from '../models/registerUsers';
@@ -13,6 +14,12 @@ import { createUsersService } from '../../../app/services/create-users.service';
 
 export class GestionUsuariosComponent implements OnInit {
   
+  @Output() formData: EventEmitter<{
+    correo: string;
+    password: string;
+  }> = new EventEmitter();
+
+  // Para la gestión de usuarios
   form: FormGroup;
   titulo = "Agregar usuario";
   
@@ -37,7 +44,7 @@ export class GestionUsuariosComponent implements OnInit {
       telefono:['',[Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
       estado:['',Validators.required],
       rol:['',Validators.required],
-      correo:['', Validators.required],
+      correo:['', [Validators.required, Validators.email]],
       password:['',Validators.required],
     })
     console.log(this.form);
@@ -45,7 +52,7 @@ export class GestionUsuariosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   
+
     this._userService.getUserEdit().subscribe(data=>{
       this.id =data.id;
       this.titulo="editar usuario";
@@ -63,6 +70,16 @@ export class GestionUsuariosComponent implements OnInit {
     })
     
     this.obtenerUsuarios();
+
+    
+  }
+
+  get email() {
+    return this.form.get('correo');
+  }
+
+  get password() {
+    return this.form.get('password');
   }
 
   btnCerrar(){
@@ -76,6 +93,7 @@ export class GestionUsuariosComponent implements OnInit {
     console.log('clic en boton guardar usuario');
     let modal:any = document.getElementById('btnModal');
     this.titulo="agregar usuario";
+    
     if(this.id === undefined) {
       // Creamos una nuevo usuario
       this.agregarUsuario();
@@ -131,7 +149,7 @@ export class GestionUsuariosComponent implements OnInit {
     }
     
     this._userService.saveUser(USUARIO).then(()=>{
-      
+      this.formData.emit(this.form.value);
       console.log('Usuario registrado');
       this.form.reset();
       
