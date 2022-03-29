@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+// import { Observable } from 'rxjs';
+// import Swal from 'sweetalert2';
+// import { BehaviorSubject, switchMap, tap} from 'rxjs';
+// import { RegisterUsers } from '../administrador/models/registerUsers';
 
 @Injectable({
   providedIn: 'root'
